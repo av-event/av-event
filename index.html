@@ -1,1 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AV EVENT - Event Management</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #0b0b0b;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #111, #1d1d1d);
+      padding: 22px 15px;
+      text-align: center;
+      border-bottom: 1px solid #c9a227;
+    }
+
+    .logo {
+      font-size: 32px;
+      font-weight: bold;
+      letter-spacing: 3px;
+      color: #d4af37;
+    }
+
+    .tagline {
+      margin-top: 7px;
+      color: #ddd;
+      font-size: 14px;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 900px;
+      margin: 25px auto;
+    }
+
+    .card {
+      background: #151515;
+      border: 1px solid #333;
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.35);
+    }
+
+    h2 {
+      color: #d4af37;
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      color: #ddd;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 13px;
+      border-radius: 8px;
+      border: 1px solid #555;
+      background: #222;
+      color: #fff;
+      font-size: 15px;
+    }
+
+    .events {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .event-btn {
+      padding: 14px 8px;
+      border: 1px solid #555;
+      background: #222;
+      color: white;
+      border-radius: 9px;
+      cursor: pointer;
+    }
+
+    .event-btn.active {
+      background: #d4af37;
+      color: #111;
+      border-color: #d4af37;
+      font-weight: bold;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .service {
+      padding: 16px;
+      background: #202020;
+      border: 1px solid #444;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .service:hover {
+      border-color: #d4af37;
+    }
+
+    .service input {
+      width: auto;
+      margin-right: 8px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 9px;
+      background: #d4af37;
+      color: #111;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    .btn:hover {
+      background: #f0cf5c;
+    }
+
+    #quotation {
+      display: none;
+    }
+
+    .total {
+      font-size: 25px;
+      color: #d4af37;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #888;
+      font-size: 13px;
+    }
+
+    @media(max-width:600px) {
+      .services,
+      .events {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">AV EVENT</div>
+  <div class="tagline">Premium Event Management & Celebration Services</div>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>Customer Details</h2>
+
+    <label>Customer Name</label>
+    <input id="customerName" type="text" placeholder="Enter your full name">
+
+    <label>Mobile Number</label>
+    <input id="mobile" type="tel" placeholder="Enter mobile number">
+
+    <label>Event Date</label>
+    <input id="eventDate" type="date">
+
+    <label>Event Location</label>
+    <input id="location" type="text" placeholder="Enter event location">
+
+    <label>Number of Guests</label>
+    <input id="guests" type="number" placeholder="Example: 100">
+
+    <label>Approximate Budget</label>
+    <input id="budget" type="number" placeholder="₹ Enter budget">
+  </div>
+
+
+  <div class="card">
+    <h2>Select Event</h2>
+
+    <div class="events">
+      <button class="event-btn" onclick="selectEvent(this,'Wedding')">Wedding</button>
+      <button class="event-btn" onclick="selectEvent(this,'Birthday')">Birthday</button>
+      <button class="event-btn" onclick="selectEvent(this,'Anniversary')">Anniversary</button>
+      <button class="event-btn" onclick="selectEvent(this,'Baby Shower')">Baby Shower</button>
+      <button class="event-btn" onclick="selectEvent(this,'Name Ceremony')">Name Ceremony</button>
+      <button class="event-btn" onclick="selectEvent(this,'Pre-Wedding')">Pre-Wedding</button>
+      <button class="event-btn" onclick="selectEvent(this,'Corporate Event')">Corporate Event</button>
+      <button class="event-btn" onclick="selectEvent(this,'Engagement')">Engagement</button>
+      <button class="event-btn" onclick="selectEvent(this,'School/College Event')">School/College</button>
+      <button class="event-btn" onclick="selectEvent(this,'Special Event')">Special Event</button>
+      <button class="event-btn" onclick="selectEvent(this,'Other')">Other</button>
+    </div>
+
+    <p id="selectedEvent" style="margin-top:15px;color:#d4af37;">
+      No event selected
+    </p>
+  </div>
+
+
+  <div class="card">
+    <h2>Choose Services</h2>
+
+    <div class="services">
+
+      <label class="service">
+        <input type="checkbox" value="5000" data-name="Decoration">
+        Decoration
+      </label>
+
+      <label class="service">
+        <input type="checkbox" value="3000" data-name="Special Effects">
+        Special Effects
+      </label>
+
+      <label class="service">
+        <input type="checkbox" value="7000" data-name="Sound & DJ">
+        Sound & DJ
+      </label>
+
+      <label class="service">
+        <input type="checkbox" value="4000" data-name="Generator">
+        Generator
+      </label>
+
+      <label class="service">
+        <input type="checkbox" value="12000" data-name="LED Wall">
+        LED Wall
+      </label>
+
+      <label class="service">
+        <input type="checkbox" value="3500" data-name="Focus & Lighting">
+        Focus & Lighting
+      </label>
+
+      <label class="service">
+        <input type="checkbox" value="5000" data-name="Beauty & Makeup">
+        Beauty & Makeup
+      </label>
+
+      <label class="service">
+        <input type="checkbox" value="8000" data-name="Tent House">
+        Tent House
+      </label>
+
+      <label class="service">
+        <input type="checkbox" value="2100" data-name="Pandit & Pujari">
+        Pandit & Pujari
+      </label>
+
+      <label class="service">
+        <input type="checkbox" value="15000" data-name="Catering Services">
+        Catering Services
+      </label>
+
+      <label class="service">
+        <input type="checkbox" value="8000" data-name="Photography">
+        Photography & Pre-Wedding
+      </label>
+
+      <label class="service">
+        <input type="checkbox" value="7000" data-name="Video Photography">
+        Video Photography
+      </label>
+
+      <label class="service">
+        <input type="checkbox" value="2000" data-name="Additional Services">
+        Additional Services
+      </label>
+
+    </div>
+
+    <button class="btn" onclick="generateQuotation()">
+      Generate Quotation
+    </button>
+  </div>
+
+
+  <div class="card" id="quotation">
+
+    <h2>AV EVENT Quotation</h2>
+
+    <p><strong>Customer:</strong> <span id="qName"></span></p>
+    <p><strong>Mobile:</strong> <span id="qMobile"></span></p>
+    <p><strong>Event:</strong> <span id="qEvent"></span></p>
+    <p><strong>Date:</strong> <span id="qDate"></span></p>
+    <p><strong>Location:</strong> <span id="qLocation"></span></p>
+    <p><strong>Guests:</strong> <span id="qGuests"></span></p>
+
+    <br>
+
+    <h3>Selected Services</h3>
+    <div id="qServices"></div>
+
+    <div class="total">
+      Estimated Total: ₹<span id="total">0</span>
+    </div>
+
+    <button class="btn" onclick="window.print()">
+      Print / Save PDF
+    </button>
+
+    <button class="btn" onclick="bookingRequest()">
+      Send Booking Request
+    </button>
+
+  </div>
+
+</div>
+
+
+<footer>
+  © 2026 AV EVENT — Event Management Services
+</footer>
+
+
+<script>
+
+let selectedEvent = "";
+
+function selectEvent(button, eventName) {
+
+  document.querySelectorAll(".event-btn")
+    .forEach(btn => btn.classList.remove("active"));
+
+  button.classList.add("active");
+
+  selectedEvent = eventName;
+
+  document.getElementById("selectedEvent").innerText =
+    "Selected Event: " + eventName;
+}
+
+
+function generateQuotation() {
+
+  const name = document.getElementById("customerName").value;
+  const mobile = document.getElementById("mobile").value;
+  const date = document.getElementById("eventDate").value;
+  const location = document.getElementById("location").value;
+  const guests = document.getElementById("guests").value;
+
+  if (!name || !mobile || !date || !location || !selectedEvent) {
+    alert("Please fill customer details and select an event.");
+    return;
+  }
+
+  document.getElementById("qName").innerText = name;
+  document.getElementById("qMobile").innerText = mobile;
+  document.getElementById("qEvent").innerText = selectedEvent;
+  document.getElementById("qDate").innerText = date;
+  document.getElementById("qLocation").innerText = location;
+  document.getElementById("qGuests").innerText = guests || "Not specified";
+
+  const checked =
+    document.querySelectorAll(
+      '.service input[type="checkbox"]:checked'
+    );
+
+  let total = 0;
+  let serviceHTML = "";
+
+  checked.forEach(item => {
+
+    const price = Number(item.value);
+
+    total += price;
+
+    serviceHTML +=
+      "<p>• " + item.dataset.name +
+      " — ₹" + price.toLocaleString("en-IN") +
+      "</p>";
+  });
+
+  document.getElementById("qServices").innerHTML =
+    serviceHTML || "<p>No services selected.</p>";
+
+  document.getElementById("total").innerText =
+    total.toLocaleString("en-IN");
+
+  document.getElementById("quotation").style.display = "block";
+
+  document.getElementById("quotation")
+    .scrollIntoView({behavior:"smooth"});
+}
+
+
+function bookingRequest() {
+
+  const name = document.getElementById("customerName").value;
+
+  alert(
+    "Thank you " + name +
+    "! Your AV EVENT booking request has been prepared. " +
+    "Our team will contact you shortly."
+  );
+
+}
+
+</script>
+
+</body>
+</html>
